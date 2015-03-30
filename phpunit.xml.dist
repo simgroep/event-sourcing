@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         bootstrap="test/bootstrap.php"
+         syntaxCheck="false"
+         strict="true"
+>
+
+  <testsuites>
+    <testsuite name="Tests">
+        <directory>test</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist>
+        <directory suffix=".php">test</directory>
+        <directory suffix=".php">src</directory>
+    </whitelist>
+  </filter>
+</phpunit>
+

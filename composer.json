@@ -1,0 +1,11 @@
+{
+    "name": "bartdezwaan/eventsourcing",
+    "type": "library",
+    "autoload": {
+        "psr-0": { "Bartdezwaan\\EventSourcing": "src/" }
+   },
+    "require": {
+        "broadway/broadway": "~0.5"
+    }
+}
+
