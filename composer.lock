@@ -1,0 +1,253 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "5fa1a98ee85865137ce8fdb78dde0999",
+    "packages": [
+        {
+            "name": "beberlei/assert",
+            "version": "v2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
+                "reference": "160eba4d1fbe692e42b3cf8a20b92ab23e3a8759",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assert": "lib/"
+                },
+                "files": [
+                    "lib/Assert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                }
+            ],
+            "description": "Thin assertion library for input validation in business models.",
+            "keywords": [
+                "assert",
+                "assertion",
+                "validation"
+            ],
+            "time": "2014-12-18 19:12:40"
+        },
+        {
+            "name": "broadway/broadway",
+            "version": "0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qandidate-labs/broadway.git",
+                "reference": "f1456c5a960f4b65c5856408eda3ac533930d169"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qandidate-labs/broadway/zipball/f1456c5a960f4b65c5856408eda3ac533930d169",
+                "reference": "f1456c5a960f4b65c5856408eda3ac533930d169",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/assert": "~2.0",
+                "broadway/uuid-generator": "~0.1.0",
+                "php": ">=5.3.3",
+                "rhumsaa/uuid": "~2.4"
+            },
+            "require-dev": {
+                "doctrine/dbal": "~2.4",
+                "doctrine/mongodb": "~1.0",
+                "elasticsearch/elasticsearch": "~1.0",
+                "instaclick/base-test-bundle": "~0.5",
+                "monolog/monolog": "~1.8",
+                "symfony/console": "~2.4",
+                "symfony/proxy-manager-bridge": "~2.4"
+            },
+            "suggest": {
+                "doctrine/dbal": "For the BroadwayBundle (to persist events)",
+                "doctrine/mongodb": "For persisting saga states (required for BroadwayBundle)",
+                "elasticsearch/elasticsearch": "For persisting read models (required for BroadwayBundle)",
+                "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
+                "symfony/console": "For the BroadwayBundle",
+                "symfony/proxy-manager-bridge": "For the BroadwayBundle"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Broadway\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "othillo",
+                    "email": "othillo@othillo.nl"
+                },
+                {
+                    "name": "Alexander",
+                    "email": "iam.asm89@gmail.com"
+                },
+                {
+                    "name": "Qandidate.com",
+                    "homepage": "http://labs.qandidate.com/"
+                },
+                {
+                    "name": "Willem-Jan",
+                    "email": "wjzijderveld@gmail.com"
+                },
+                {
+                    "name": "Emil",
+                    "email": "emil@broekmeulen.com"
+                },
+                {
+                    "name": "Fritsjan",
+                    "email": "fritsjan@qandidate.com"
+                }
+            ],
+            "description": "Infrastructure and testing helpers for creating CQRS and event sourced applications.",
+            "keywords": [
+                "cqrs",
+                "ddd",
+                "domain-driven design",
+                "event sourcing"
+            ],
+            "time": "2015-02-16 20:42:42"
+        },
+        {
+            "name": "broadway/uuid-generator",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qandidate-labs/broadway-uuid-generator.git",
+                "reference": "58380b723c671807131fe9ac0ff077f162be47bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qandidate-labs/broadway-uuid-generator/zipball/58380b723c671807131fe9ac0ff077f162be47bb",
+                "reference": "58380b723c671807131fe9ac0ff077f162be47bb",
+                "shasum": ""
+            },
+            "require-dev": {
+                "rhumsaa/uuid": "~2.4"
+            },
+            "suggest": {
+                "rhumsaa/uuid": "Allows creating UUIDs"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Broadway\\UuidGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "UUID generator for broadway/broadway.",
+            "time": "2014-09-12 14:14:07"
+        },
+        {
+            "name": "rhumsaa/uuid",
+            "version": "2.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/uuid.git",
+                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/cca98c652cac412c9c2f109c69e5532f313435fc",
+                "reference": "cca98c652cac412c9c2f109c69e5532f313435fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/dbal": ">=2.3",
+                "moontoast/math": "~1.1",
+                "phpunit/phpunit": "~4.1",
+                "satooshi/php-coveralls": "~0.6",
+                "symfony/console": "~2.3"
+            },
+            "suggest": {
+                "doctrine/dbal": "Allow the use of a UUID as doctrine field type.",
+                "moontoast/math": "Support for converting UUID to 128-bit integer (in string form).",
+                "symfony/console": "Support for use of the bin/uuid command line tool."
+            },
+            "bin": [
+                "bin/uuid"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rhumsaa\\Uuid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marijn Huizendveld",
+                    "email": "marijn.huizendveld@gmail.com"
+                },
+                {
+                    "name": "Ben Ramsey",
+                    "homepage": "http://benramsey.com"
+                }
+            ],
+            "description": "A PHP 5.3+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
+            "homepage": "https://github.com/ramsey/uuid",
+            "keywords": [
+                "guid",
+                "identifier",
+                "uuid"
+            ],
+            "time": "2014-11-09 18:42:56"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
