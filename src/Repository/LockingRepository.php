@@ -4,6 +4,7 @@ namespace Bartdezwaan\EventSourcing\Repository;
 
 use Broadway\Domain\AggregateRoot;
 use Broadway\Repository\RepositoryInterface;
+use Exception;
 
 class LockingRepository implements RepositoryInterface
 {
@@ -37,7 +38,12 @@ class LockingRepository implements RepositoryInterface
      */
     public function load($id)
     {
-        
+        try {
+            $this->lockManager->obtain($id);
+            parent::load($id);
+        } catch (Exception $e) {
+            $this->lockManager->release($id);
+        }
     }
 
     /**
@@ -47,6 +53,14 @@ class LockingRepository implements RepositoryInterface
      */
     public function save(AggregateRoot $aggregate)
     {
-        
+        if ( ! $this->lockManager->isObtained($aggregate->getAggregateRootId())) {
+            throw new Exception\RuntimeException(sprintf(
+                'Aggregate %s with id %s is not locked',
+                get_class($aggregate),
+                $aggregate->getAggregateRootId()
+            ));
+        }
+        parent::save($aggregate);
+        $this->lockManager->release($aggregate->getAggregateRootId());
     }
 }
