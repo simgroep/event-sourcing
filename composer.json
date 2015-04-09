@@ -3,9 +3,15 @@
     "type": "library",
     "autoload": {
         "psr-0": { "Bartdezwaan\\EventSourcing": "src/" }
-   },
+    },
     "require": {
         "broadway/broadway": "~0.5"
+    },
+    "require-dev": {
+        "arvenil/ninja-mutex": ">=0.4.0"
+    },
+    "suggest": {
+        "arvenil/ninja-mutex": "Required if you want to use LockingRepository"
     }
 }
 
