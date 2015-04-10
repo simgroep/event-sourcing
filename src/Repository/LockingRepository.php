@@ -40,27 +40,22 @@ class LockingRepository implements RepositoryInterface
     {
         try {
             $this->lockManager->obtain($id);
-            parent::load($id);
+            return $this->repository->load($id);
         } catch (Exception $e) {
             $this->lockManager->release($id);
         }
     }
 
     /**
+     * Releases lock after saving if there was one.
+     * 
      * @param AggregateRoot $aggregate
      * 
      * @return void
      */
     public function save(AggregateRoot $aggregate)
     {
-        if ( ! $this->lockManager->isObtained($aggregate->getAggregateRootId())) {
-            throw new Exception\RuntimeException(sprintf(
-                'Aggregate %s with id %s is not locked',
-                get_class($aggregate),
-                $aggregate->getAggregateRootId()
-            ));
-        }
-        parent::save($aggregate);
+        $this->repository->save($aggregate);
         $this->lockManager->release($aggregate->getAggregateRootId());
     }
 }
