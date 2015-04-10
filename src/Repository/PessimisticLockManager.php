@@ -52,6 +52,9 @@ class PessimisticLockManager implements LockManager
      */
     public function release($aggregateId)
     {
+        if ( ! $this->isObtained($aggregateId)) {
+            return;
+        }
         $this->lock->releaseLock($aggregateId);
         unset($this->lockedAggregateIds[$aggregateId]);
     }

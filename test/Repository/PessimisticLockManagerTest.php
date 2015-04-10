@@ -59,6 +59,15 @@ class PessimisticLockManagerTest extends TestCase
         $this->assertFalse($manager->isObtained('foo'));
     }
     
+    public function testOnlyReleaseLockForThisThread()
+    {
+        $this->lock
+            ->expects($this->never())
+            ->method('releaseLock');
+        
+        $this->createManager()->release('foo');
+    }
+    
     public function testAlreadyLocked()
     {
         $this->lock
