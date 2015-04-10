@@ -6,9 +6,9 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         bootstrap="test/bootstrap.php"
+         bootstrap="vendor/autoload.php"
          syntaxCheck="false"
-         strict="true"
+         colors="true"
 >
 
   <testsuites>
