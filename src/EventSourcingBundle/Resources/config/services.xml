@@ -4,26 +4,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <imports>
-        <import resource="messaging.xml" />
-    </imports>
-    
     <services>
-        <service id="command_gateway" alias="spray_event_sourcing.command_gateway" />
-        <service id="spray_event_sourcing.command_gateway" class="Bartdezwaan\EventSourcing\CommandHandling\CommandGateway">
+        <service id="command_gateway" alias="simgroep_event_sourcing.command_gateway" />
+        
+        <service id="simgroep_event_sourcing.command_gateway" class="Simgroep\EventSourcing\CommandHandling\CommandGateway">
             <argument type="service" id="broadway.command_handling.simple_command_bus" />
-            <argument type="service" id="spray_event_sourcing.command_gateway.scheduler" />
+            <argument type="service" id="simgroep_event_sourcing.command_gateway.scheduler" />
         </service>
-        <service id="spray_event_sourcing.command_gateway.scheduler" class="Bartdezwaan\EventSourcing\CommandHandling\IntervalScheduler">
+        
+        <service id="simgroep_event_sourcing.command_gateway.scheduler" class="Simgroep\EventSourcing\CommandHandling\IntervalScheduler">
             <argument>50000</argument>
             <argument>100</argument>
         </service>
         
-        
-        <service id="spray_event_sourcing.event_handling.async_event_bus" class="Broadway\EventHandling\SimpleEventBus"  lazy="true"/>
-
-        
-        <service id="spray_event_sourcing.repository.lock_manager" class="Bartdezwaan\EventSourcing\Repository\PessimisticLockManager">
+        <service id="simgroep_event_sourcing.repository.lock_manager" class="Simgroep\EventSourcing\Repository\PessimisticLockManager">
             <argument type="service">
                 <service class="NinjaMutex\Lock\MySqlLock">
                     <argument>%database_user%</argument>
@@ -33,14 +27,18 @@
             </argument>
         </service>
         
-        <service id="spray_event_sourcing.event_handling.rabbitmq_listener"
-                 class="Bartdezwaan\EventSourcing\EventHandling\RabbitMQListener">
-            <argument type="service" id="spray_serializer" />
-            <tag name="broadway.domain.event_listener" />
+        <service id="simgroep_event_sourcing.locking_repository" class="Simgroep\EventSourcing\Repository\LockingRepository"
+                 factory-service="simgroep_event_sourcing.locking_repository_factory"
+                 factory-method="build"
+                 abstract="true">
         </service>
-        
-        <service id="spray_event_sourcing.event_handling.serializer.domain_message" class="Simgroep\EventSourcing\EventSourcingBundle\Serializer\DomainMessageSerializer">
-            <tag name="spray_serializer" />
+        <service id="simgroep_event_sourcing.locking_repository_factory" class="Simgroep\EventSourcing\Repository\LockingRepositoryFactory">
+            <argument type="service" id="simgroep_event_sourcing.repository.lock_manager" />
+            <argument type="service" id="broadway.event_store" />
+            <argument type="service" id="broadway.event_handling.event_bus" />
+            <argument type="service">
+                <service class="Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory" />
+            </argument>
         </service>
     </services>
 </container>

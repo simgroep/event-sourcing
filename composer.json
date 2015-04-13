@@ -8,14 +8,12 @@
         "psr-4": { "Simgroep\\EventSourcing\\": "test/" }
     },
     "require": {
-        "broadway/broadway": "~0.5"
+        "broadway/broadway": "~0.5",
+        "arvenil/ninja-mutex": ">=0.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.0.0",
-        "arvenil/ninja-mutex": ">=0.4.0"
-    },
-    "suggest": {
-        "arvenil/ninja-mutex": "Required if you want to use LockingRepository"
+        "jurjean/spray-bundle-integration": "dev-master"
     }
 }
 
