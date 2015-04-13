@@ -15,5 +15,5 @@ called. When save() is called, the lock will be released. Trying to access the
 repository while being locked will result in a _ConcurrencyException_.
 
 The _CommandGateway_ will in turn catch the _ConcurrencyException_, and will try
-do dispatch a command again untill a specific condition is met (depends on the
+do dispatch the command again until a specific condition is met (depends on the
 used _Scheduler_ implementation), or throw the _ConcurrencyException_ otherwise.
