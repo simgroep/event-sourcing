@@ -1,9 +1,9 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\Repository;
+namespace Simgroep\EventSourcing\Repository;
 
-use Bartdezwaan\EventSourcing\Repository\Exception\ConcurrencyException;
-use Bartdezwaan\EventSourcing\TestCase;
+use Simgroep\EventSourcing\Repository\Exception\ConcurrencyException;
+use Simgroep\EventSourcing\TestCase;
 use Broadway\Domain\AggregateRoot;
 use Broadway\Repository\RepositoryInterface;
 use RuntimeException;
@@ -27,7 +27,7 @@ class LockingRepositoryTest extends TestCase
     
     protected function setUp()
     {
-        $this->lockManager = $this->getMock('Bartdezwaan\EventSourcing\Repository\LockManager');
+        $this->lockManager = $this->getMock('Simgroep\EventSourcing\Repository\LockManager');
         $this->repository = $this->getMock('Broadway\Repository\RepositoryInterface');
         $this->aggregate = $this->getMock('Broadway\Domain\AggregateRoot');
         

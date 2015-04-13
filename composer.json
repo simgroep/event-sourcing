@@ -1,11 +1,11 @@
 {
-    "name": "bartdezwaan/eventsourcing",
+    "name": "simgroep/event-sourcing",
     "type": "library",
     "autoload": {
-        "psr-4": { "Bartdezwaan\\EventSourcing\\": "src/" }
+        "psr-4": { "Simgroep\\EventSourcing\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Bartdezwaan\\EventSourcing\\": "test/" }
+        "psr-4": { "Simgroep\\EventSourcing\\": "test/" }
     },
     "require": {
         "broadway/broadway": "~0.5"

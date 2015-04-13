@@ -1,6 +1,6 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\CommandHandling;
+namespace Simgroep\EventSourcing\CommandHandling;
 
 class VoidCallback implements Callback
 {

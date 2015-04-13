@@ -1,6 +1,6 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\EventHandling;
+namespace Simgroep\EventSourcing\EventHandling;
 
 use Broadway\Domain\DomainEventStreamInterface;
 use Broadway\EventHandling\EventBusInterface;

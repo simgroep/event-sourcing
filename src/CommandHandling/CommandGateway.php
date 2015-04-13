@@ -1,6 +1,6 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\CommandHandling;
+namespace Simgroep\EventSourcing\CommandHandling;
 
 use Broadway\CommandHandling\CommandBusInterface;
 use Exception;

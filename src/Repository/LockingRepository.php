@@ -1,6 +1,6 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\Repository;
+namespace Simgroep\EventSourcing\Repository;
 
 use Broadway\Domain\AggregateRoot;
 use Broadway\Repository\RepositoryInterface;

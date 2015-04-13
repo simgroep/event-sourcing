@@ -1,6 +1,6 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\Repository\Exception;
+namespace Simgroep\EventSourcing\Repository\Exception;
 
 class ConcurrencyException extends RuntimeException
 {

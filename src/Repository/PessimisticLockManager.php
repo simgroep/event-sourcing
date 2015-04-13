@@ -1,8 +1,8 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\Repository;
+namespace Simgroep\EventSourcing\Repository;
 
-use Bartdezwaan\EventSourcing\Repository\Exception\ConcurrencyException;
+use Simgroep\EventSourcing\Repository\Exception\ConcurrencyException;
 use NinjaMutex\Lock\LockInterface;
 
 class PessimisticLockManager implements LockManager

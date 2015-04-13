@@ -1,8 +1,8 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\Repository;
+namespace Simgroep\EventSourcing\Repository;
 
-use Bartdezwaan\EventSourcing\TestCase;
+use Simgroep\EventSourcing\TestCase;
 use NinjaMutex\Lock\LockInterface;
 
 class PessimisticLockManagerTest extends TestCase
@@ -76,7 +76,7 @@ class PessimisticLockManagerTest extends TestCase
             ->with($this->equalTo('foo'))
             ->will($this->returnValue(false));
         
-        $this->setExpectedException('Bartdezwaan\EventSourcing\Repository\Exception\ConcurrencyException');
+        $this->setExpectedException('Simgroep\EventSourcing\Repository\Exception\ConcurrencyException');
         $this->createManager()->obtain('foo');
     }
 }

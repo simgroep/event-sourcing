@@ -1,8 +1,8 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\CommandHandling;
+namespace Simgroep\EventSourcing\CommandHandling;
 
-use Bartdezwaan\EventSourcing\Repository\Exception\ConcurrencyException;
+use Simgroep\EventSourcing\Repository\Exception\ConcurrencyException;
 use Broadway\CommandHandling\CommandBusInterface;
 use Exception;
 

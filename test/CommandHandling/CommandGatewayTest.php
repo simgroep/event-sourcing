@@ -1,9 +1,9 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing\CommandHandling;
+namespace Simgroep\EventSourcing\CommandHandling;
 
-use Bartdezwaan\EventSourcing\Repository\Exception\ConcurrencyException;
-use Bartdezwaan\EventSourcing\TestCase;
+use Simgroep\EventSourcing\Repository\Exception\ConcurrencyException;
+use Simgroep\EventSourcing\TestCase;
 use Broadway\CommandHandling\CommandBusInterface;
 use stdClass;
 use Exception;
@@ -28,8 +28,8 @@ class CommandGatewayTest extends TestCase
     protected function setUp()
     {
         $this->commandBus = $this->getMock('Broadway\CommandHandling\CommandBusInterface');
-        $this->scheduler = $this->getMock('Bartdezwaan\EventSourcing\CommandHandling\Scheduler');
-        $this->callback = $this->getMock('Bartdezwaan\EventSourcing\CommandHandling\Callback');
+        $this->scheduler = $this->getMock('Simgroep\EventSourcing\CommandHandling\Scheduler');
+        $this->callback = $this->getMock('Simgroep\EventSourcing\CommandHandling\Callback');
     }
     
     protected function createGateway()
@@ -88,7 +88,7 @@ class CommandGatewayTest extends TestCase
     
     public function testFailRetrySentCommandNoRetriesLeft()
     {
-        $this->setExpectedException('Bartdezwaan\EventSourcing\Repository\Exception\ConcurrencyException');
+        $this->setExpectedException('Simgroep\EventSourcing\Repository\Exception\ConcurrencyException');
         
         $command = new stdClass;
         

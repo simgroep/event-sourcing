@@ -1,6 +1,6 @@
 <?php
 
-namespace Bartdezwaan\EventSourcing;
+namespace Simgroep\EventSourcing;
 
 use PHPUnit_Framework_TestCase;
 
