@@ -9,11 +9,16 @@
     },
     "require": {
         "broadway/broadway": "~0.5",
+        "jurjean/spray-serializer-bundle": "dev-master",
         "arvenil/ninja-mutex": ">=0.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.0.0",
-        "jurjean/spray-bundle-integration": "dev-master"
+        "jurjean/spray-bundle-integration": "dev-master",
+        "videlalvaro/php-amqplib": ">=2.0.0"
+    },
+    "suggest": {
+        "videlalvaro/php-amqplib": "To enable AMQP messaging"
     }
 }
 

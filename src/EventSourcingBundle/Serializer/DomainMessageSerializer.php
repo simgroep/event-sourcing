@@ -2,9 +2,6 @@
 
 namespace Simgroep\EventSourcing\EventSourcingBundle\Serializer;
 
-use Simgroep\Serializer\AbstractObjectSerializer;
-use Simgroep\Serializer\SerializerInterface;
-
 class DomainMessageSerializer extends AbstractObjectSerializer
 {
     public function __construct()
