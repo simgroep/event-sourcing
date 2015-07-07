@@ -62,5 +62,9 @@
             <argument>%amqp_username%</argument>
             <argument>%amqp_password%</argument>
         </service>
+
+        <service id="simgroep_event_sourcing.serializer.domain_message" class="Simgroep\EventSourcing\EventSourcingBundle\Serializer\DomainMessageSerializer">
+            <tag name="spray_serializer" />
+        </service>
     </services>
 </container>
