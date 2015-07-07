@@ -45,7 +45,7 @@ class SimgroepEventSouringBundleTest extends ORMIntegrationTestCase
 
             $queueDefinition = new Definition();
             $queueDefinition->setClass(VoidQueue::class);
-            $queueDefinition->addTag('simgroep.event.queue', array('alias' => 'foo'));
+            $queueDefinition->addTag('simgroep.event.queue', array('registry_key' => 'foo'));
             $container->setDefinition('queue', $queueDefinition);
         });
     }
