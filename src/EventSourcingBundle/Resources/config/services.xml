@@ -6,6 +6,7 @@
 
     <services>
         <service id="command_gateway" alias="simgroep_event_sourcing.command_gateway" />
+        <service id="queue_registry" alias="simgroep_event_sourcing.messaging.queue_registry" />
         
         <service id="simgroep_event_sourcing.command_gateway" class="Simgroep\EventSourcing\CommandHandling\CommandGateway">
             <argument type="service" id="broadway.command_handling.simple_command_bus" />
@@ -40,5 +41,7 @@
                 <service class="Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory" />
             </argument>
         </service>
+
+        <service id="simgroep_event_sourcing.messaging.queue_registry" class="Simgroep\EventSourcing\Messaging\ArrayQueueRegistry" />
     </services>
 </container>
