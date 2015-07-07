@@ -4,9 +4,11 @@ namespace Simgroep\EventSourcing\EventSourcingBundle;
 
 use Broadway\Bundle\BroadwayBundle\BroadwayBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Simgroep\EventSourcing\Messaging\AMQPQueueFactory;
 use Simgroep\EventSourcing\Messaging\Queue;
 use Simgroep\EventSourcing\Messaging\VoidQueue;
 use Spray\BundleIntegration\ORMIntegrationTestCase;
+use Spray\SerializerBundle\SpraySerializerBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,6 +23,7 @@ class SimgroepEventSouringBundleTest extends ORMIntegrationTestCase
             new FrameworkBundle(),
             new DoctrineBundle(),
             new BroadwayBundle(),
+            new SpraySerializerBundle(),
             new SimgroepEventSourcingBundle()
         );
     }
@@ -66,6 +69,11 @@ class SimgroepEventSouringBundleTest extends ORMIntegrationTestCase
             'Simgroep\EventSourcing\Repository\LockingRepository',
             $this->createContainer()->get('locking_repository')
         );
+    }
+
+    public function testQueueFactory()
+    {
+        $this->assertInstanceOf(AMQPQueueFactory::class, $this->createContainer()->get('queue_factory'));
     }
 
     public function testQueueRegistry()
