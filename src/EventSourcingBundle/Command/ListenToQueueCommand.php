@@ -7,6 +7,7 @@ use Broadway\EventStore\EventStoreInterface;
 use Exception;
 use Simgroep\EventSourcing\Messaging\Queue;
 use Simgroep\EventSourcing\Messaging\QueueMessage;
+use Simgroep\EventSourcing\Messaging\QueueRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +18,7 @@ class ListenToQueueCommand extends Command
     /**
      * @var Queue
      */
-    private $queue;
+    private $queueRegistry;
 
     /**
      * @var EventStoreInterface
@@ -25,31 +26,41 @@ class ListenToQueueCommand extends Command
     private $eventStore;
 
     /**
-     * @param Queue $queue
+     * @param QueueRegistry       $queue
      * @param EventStoreInterface $eventStore
+     * @param EventBusInterface   $eventBus
      */
     public function __construct(
-        Queue $queue,
+        QueueRegistry $queue,
         EventStoreInterface $eventStore,
         EventBusInterface $eventBus)
     {
         parent::__construct('queue:listen');
 
-        $this->queue = $queue;
+        $this->queueRegistry = $queue;
         $this->eventStore = $eventStore;
         $this->eventBus = $eventBus;
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this->addArgument('queue', InputArgument::REQUIRED);
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(sprintf('<info>Listening to queue:</info> %s', $input->getArgument('queue')));
 
-        $this->queue->receive(function(QueueMessage $message) use ($output) {
+        $this->queueRegistry->get($input->getArgument('queue'))->receive(function(QueueMessage $message) use ($output) {
             try {
                 $output->writeln(sprintf('<info>Handling message with id:</info> %s', $message->getId()));
                 $this->eventStore->append($message->getId(), $message->getStream());
