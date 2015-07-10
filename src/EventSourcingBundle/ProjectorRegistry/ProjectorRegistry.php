@@ -36,22 +36,37 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
         $this->projectors[$key] = $projector;
     }
 
+    /**
+     * @return array
+     */
     public function getAllKeys()
     {
         return array_keys($this->projectors);
     }
 
+    /**
+     * @param mixed $offset
+     * @return bool
+     */
     public function offsetExists($offset)
     {
         return isset($this->projectors[$offset]);
     }
 
+    /**
+     * @param mixed $offset
+     * @return null
+     */
     public function offsetGet($offset)
     {
         return isset($this->projectors[$offset]) ? $this->projectors[$offset] : null;
     }
 
 
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -61,6 +76,9 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
         }
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function offsetUnset($offset)
     {
         unset($this->projectors[$offset]);
