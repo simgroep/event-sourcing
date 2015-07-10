@@ -24,9 +24,9 @@ class ProjectorListCommand extends ContainerAwareCommand
         $projectorsIds      = $projectorRegistry->getAllKeys();
 
         if (empty($projectorsIds)) {
-            $output->writeln("\n<comment>No projectors found for replaying.</comment>");
+            $output->writeln("\n<comment>No projectors found for rebuilding.</comment>");
         } else {
-            $output->writeln("\n<info>The following projectors are available for replaying:</info>");
+            $output->writeln("\n<info>The following projectors are available for rebuilding:</info>");
         }
 
         foreach ($projectorsIds as $projectorsId) {
