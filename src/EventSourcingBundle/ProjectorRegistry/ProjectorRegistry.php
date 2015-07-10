@@ -6,7 +6,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Broadway\ReadModel\ProjectorInterface;
 use IteratorAggregate;
-use SIM\SettingsBundle\ProjectorRegistry\Exceptions\DuplicateProjectorException;
+use Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry\Exceptions\DuplicateProjectorException;
 
 
 /**
