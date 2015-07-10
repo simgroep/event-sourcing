@@ -10,6 +10,7 @@
     "require": {
         "broadway/broadway": "~0.5",
         "jurjean/spray-serializer-bundle": "dev-master",
+        "jurjean/spray-serializer": "dev-master",
         "arvenil/ninja-mutex": ">=0.4.0"
     },
     "require-dev": {

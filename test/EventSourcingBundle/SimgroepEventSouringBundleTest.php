@@ -71,11 +71,6 @@ class SimgroepEventSouringBundleTest extends ORMIntegrationTestCase
         );
     }
 
-    public function testQueueFactory()
-    {
-        $this->assertInstanceOf(AMQPQueueFactory::class, $this->createContainer()->get('queue_factory'));
-    }
-
     public function testQueueRegistry()
     {
         $registry = $this->createContainer()->get('queue_registry');

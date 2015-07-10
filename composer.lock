@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2569070e17594f5f29d5379eadf95b32",
+    "hash": "8af81730c1e36e7cb3aee9557b0b83ac",
     "packages": [
         {
             "name": "arvenil/ninja-mutex",
@@ -637,16 +637,16 @@
         },
         {
             "name": "jurjean/spray-serializer",
-            "version": "1.0.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JurJean/SpraySerializer.git",
-                "reference": "0018a2fa19c3a51fe096acd04330a14a966bdebf"
+                "reference": "b08aaec5262dd2edf42158d2d3f864ff06b0e861"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JurJean/SpraySerializer/zipball/0018a2fa19c3a51fe096acd04330a14a966bdebf",
-                "reference": "0018a2fa19c3a51fe096acd04330a14a966bdebf",
+                "url": "https://api.github.com/repos/JurJean/SpraySerializer/zipball/b08aaec5262dd2edf42158d2d3f864ff06b0e861",
+                "reference": "b08aaec5262dd2edf42158d2d3f864ff06b0e861",
                 "shasum": ""
             },
             "require": {
@@ -661,16 +661,16 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Spray\\Serializer": "src/"
+                "psr-4": {
+                    "Spray\\Serializer\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-03-12 09:49:57"
+            "time": "2015-06-22 13:49:58"
         },
         {
             "name": "jurjean/spray-serializer-bundle",
@@ -2142,16 +2142,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.3.4",
+            "version": "2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "92408bb1968a81b3217a6fdf6c1a198da83caa35"
+                "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/92408bb1968a81b3217a6fdf6c1a198da83caa35",
-                "reference": "92408bb1968a81b3217a6fdf6c1a198da83caa35",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/1c330b1b6e1ea8fd15f2fbea46770576e366855c",
+                "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c",
                 "shasum": ""
             },
             "require": {
@@ -2193,7 +2193,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-06-11 15:55:48"
+            "time": "2015-07-04 05:41:32"
         },
         {
             "name": "sebastian/comparator",
@@ -2680,6 +2680,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "jurjean/spray-serializer-bundle": 20,
+        "jurjean/spray-serializer": 20,
         "jurjean/spray-bundle-integration": 20
     },
     "prefer-stable": false,
