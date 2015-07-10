@@ -4,14 +4,14 @@ namespace Simgroep\EventSourcing\EventSourcingBundle\Infrastructure;
 
 use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainMessage;
-use Spray\Serializer\SerializerInterface;
+use Broadway\Serializer\SerializerInterface;
 use Doctrine\DBAL\Connection;
 
 class Replay
 {
     private $connection;
-    private $serializer;
-    private $encryptionSerializer;
+    private $serializerMetadata;
+    private $serializerPayload;
     private $tableName;
     private $loadStatement;
 
@@ -22,13 +22,13 @@ class Replay
      */
     public function __construct(
         Connection $connection,
-        SerializerInterface $serializer,
-        $encryptionSerializer,
+        SerializerInterface  $serializerMetadata,
+        SerializerInterface $serializerPayload,
         $tableName = 'events')
     {
         $this->connection           = $connection;
-        $this->serializer           = $serializer;
-        $this->encryptionSerializer = $encryptionSerializer;
+        $this->serializerMetadata   = $serializerMetadata;
+        $this->serializerPayload    = $serializerPayload;
         $this->tableName            = $tableName;
     }
 
@@ -73,8 +73,8 @@ class Replay
         return new DomainMessage(
             $row['uuid'],
             $row['playhead'],
-            $this->serializer->deserialize($metadata, $metadata['payload']),
-            $this->encryptionSerializer->deserialize($payload, $payload['payload']),
+            $this->serializerMetadata->deserialize($metadata, $metadata['payload']),
+            $this->serializerPayload->deserialize($payload, $payload['payload']),
             DateTime::fromString($row['recorded_on'])
         );
     }

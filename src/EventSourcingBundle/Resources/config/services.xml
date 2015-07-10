@@ -69,7 +69,7 @@
 
         <service id="sim.event_store.replay" class="Simgroep\EventSourcing\EventSourcingBundle\Infrastructure\Replay">
             <argument type="service" id="doctrine.dbal.default_connection" />
-            <argument type="service" id="spray_serializer" />
+            <argument type="service" id="broadway.serializer.metadata" />
             <argument type="service" id="broadway.serializer.payload" />
             <argument>events</argument>
         </service>
