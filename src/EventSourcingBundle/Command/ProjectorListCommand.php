@@ -12,7 +12,7 @@ class ProjectorListCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('config:projectors:list')
+            ->setName('simgroep:eventsourcing:projectors:list')
             ->setDescription('List all projectors')
         ;
     }

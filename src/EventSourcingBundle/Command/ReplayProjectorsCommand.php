@@ -14,7 +14,7 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('config:replay:events')
+            ->setName('simgroep:eventsourcing:events:replay')
             ->setDescription('Replays events to rebuild read models')
         ;
 
