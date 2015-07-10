@@ -74,6 +74,6 @@
             <argument>events</argument>
         </service>
 
-        <service id="sim.projector.registry" class="SIM\SettingsBundle\ProjectorRegistry\ProjectorRegistry" />
+        <service id="sim.projector.registry" class="Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry\ProjectorRegistry" />
     </services>
 </container>

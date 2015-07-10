@@ -19,7 +19,7 @@ class ProjectorListCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var \SIM\SettingsBundle\ProjectorRegistry\ProjectorRegistry $projectorRegistry */
+        /** @var \Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry\ProjectorRegistry $projectorRegistry */
         $projectorRegistry  = $this->getContainer()->get('sim.projector.registry');
         $projectorsIds      = $projectorRegistry->getAllKeys();
 
