@@ -2,7 +2,7 @@
 
 namespace Simgroep\EventSourcing\EventSourcingBundle\Command;
 
-use SIM\SettingsBundle\ProjectorRegistry\ProjectorRegistry;
+use Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry\ProjectorRegistry;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,8 +28,8 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var \SIM\SettingsBundle\Infrastructure\Replay $eventStore */
-        /** @var \SIM\SettingsBundle\ProjectorRegistry\ProjectorRegistry $projectorRegistry */
+        /** @var \Simgroep\EventSourcing\EventSourcingBundle\Infrastructure\Replay $eventStore */
+        /** @var \Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry\ProjectorRegistry $projectorRegistry */
         $eventStore         = $this->getContainer()->get('sim.event_store.replay');
         $projectorRegistry  = $this->getContainer()->get('sim.projector.registry');
 
