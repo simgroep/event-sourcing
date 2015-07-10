@@ -23,11 +23,18 @@ class ProjectorListCommand extends ContainerAwareCommand
         $projectorRegistry  = $this->getContainer()->get('sim.projector.registry');
         $projectorsIds      = $projectorRegistry->getAllKeys();
 
-        $output->writeln("The following projectors are available for replaying");
+        if (empty($projectorsIds)) {
+            $output->writeln("\n<comment>No projectors found for replaying.</comment>");
+        } else {
+            $output->writeln("\n<info>The following projectors are available for replaying:</info>");
+        }
+
         foreach ($projectorsIds as $projectorsId) {
             $output->writeln(
-                sprintf("projector id: %s", $projectorsId)
+                sprintf("<comment>- %s</comment>", $projectorsId)
             );
         }
+
+        $output->writeln("");
     }
 }

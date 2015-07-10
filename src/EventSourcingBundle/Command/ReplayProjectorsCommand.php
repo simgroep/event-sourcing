@@ -39,29 +39,33 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
             $projectorRegistry
         );
 
+        $output->writeln("\n<info>Deleting old projections</info>");
+
         $this->prepareProjectorsForRebuilding($projectorRegistry, $projectorsToHandle);
+
+        $output->writeln('<info>Start building new projections.</info>');
+        $output->writeln("--------------------------------------------------------------------------------------------------------------------------------------------");
 
         $eventStore->replay(function($domainMessage) use ($projectorRegistry, $projectorsToHandle, $output) {
             /** @var \Broadway\Domain\DomainMessage $domainMessage */
             /** @var \Broadway\ReadModel\ProjectorInterface $projector */
             foreach ($projectorRegistry as $serviceId => $projector) {
 
-                if (!in_array($serviceId, $projectorsToHandle)) {
-                    continue;
-                }
                 $projector->handle($domainMessage);
                 $output->writeln(
                     sprintf(
-                        'Replayed: %s: %s on projector %s',
+                        '<comment>-Replayed: %s: %s on projector %s</comment>',
                         $domainMessage->getId(),
                         $domainMessage->getType(),
                         $serviceId
                     )
                 );
+
+                $output->writeln("--------------------------------------------------------------------------------------------------------------------------------------------");
             }
         });
 
-        $output->writeln('Rebuild projectors completed.');
+        $output->writeln("<info>Rebuilding projections completed.</info>\n");
     }
 
     /**
