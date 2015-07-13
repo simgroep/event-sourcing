@@ -51,6 +51,10 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
             /** @var \Broadway\ReadModel\ProjectorInterface $projector */
             foreach ($projectorRegistry as $serviceId => $projector) {
 
+                if (!in_array($serviceId, $projectorsToHandle)) {
+                    continue;                
+                }
+ 
                 $projector->handle($domainMessage);
                 $output->writeln(
                     sprintf(
