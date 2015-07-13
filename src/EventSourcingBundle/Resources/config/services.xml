@@ -66,5 +66,14 @@
         <service id="simgroep_event_sourcing.serializer.domain_message" class="Simgroep\EventSourcing\EventSourcingBundle\Serializer\DomainMessageSerializer">
             <tag name="spray_serializer" />
         </service>
+
+        <service id="sim.event_store.replay" class="Simgroep\EventSourcing\EventSourcingBundle\Infrastructure\Replay">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+            <argument type="service" id="broadway.serializer.metadata" />
+            <argument type="service" id="broadway.serializer.payload" />
+            <argument>events</argument>
+        </service>
+
+        <service id="sim.projector.registry" class="Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry\ProjectorRegistry" />
     </services>
 </container>
