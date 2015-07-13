@@ -55,7 +55,7 @@ class TaggedQueueCompilerPass implements CompilerPassInterface
         $target = $container->getDefinition('broadway.event_handling.event_bus');
 
         $definition = new Definition();
-        $definition->setClass(PublishMessageToQueue::class);
+        $definition->setClass('Simgroep\EventSourcing\EventHandling\PublishMessageToQueue');
         $definition->setArguments(array(
             new Reference($id)
         ));
