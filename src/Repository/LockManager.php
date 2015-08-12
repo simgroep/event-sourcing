@@ -2,7 +2,7 @@
 
 namespace Simgroep\EventSourcing\Repository;
 
-use ConcurrencyException;
+use Simgroep\EventSourcing\Repository\Exception\ConcurrencyException;
 
 interface LockManager
 {
