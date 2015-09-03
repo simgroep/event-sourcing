@@ -691,12 +691,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JurJean/SpraySerializer.git",
-                "reference": "26629d04061e413b37e99013cfe4f598e593081e"
+                "reference": "f3825d06b98e6ff1b0a52744493509e0b7c008fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JurJean/SpraySerializer/zipball/26629d04061e413b37e99013cfe4f598e593081e",
-                "reference": "26629d04061e413b37e99013cfe4f598e593081e",
+                "url": "https://api.github.com/repos/JurJean/SpraySerializer/zipball/f3825d06b98e6ff1b0a52744493509e0b7c008fd",
+                "reference": "f3825d06b98e6ff1b0a52744493509e0b7c008fd",
                 "shasum": ""
             },
             "require": {
@@ -720,7 +720,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-07-27 09:51:25"
+            "time": "2015-09-03 09:54:00"
         },
         {
             "name": "jurjean/spray-serializer-bundle",
@@ -728,16 +728,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JurJean/SpraySerializerBundle.git",
-                "reference": "3c6b3d9310ea48b69869ffd70e880a45fb41b9e3"
+                "reference": "a1eb32aad8b25eafe6a39260daf6af087145ab25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JurJean/SpraySerializerBundle/zipball/3c6b3d9310ea48b69869ffd70e880a45fb41b9e3",
-                "reference": "3c6b3d9310ea48b69869ffd70e880a45fb41b9e3",
+                "url": "https://api.github.com/repos/JurJean/SpraySerializerBundle/zipball/a1eb32aad8b25eafe6a39260daf6af087145ab25",
+                "reference": "a1eb32aad8b25eafe6a39260daf6af087145ab25",
                 "shasum": ""
             },
             "require": {
-                "jurjean/spray-serializer": ">=1.0.0",
+                "jurjean/spray-serializer": "dev-master",
                 "symfony/http-foundation": ">=2.0.0"
             },
             "require-dev": {
@@ -761,7 +761,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-04-09 09:14:05"
+            "time": "2015-09-03 10:02:37"
         },
         {
             "name": "psr/log",
