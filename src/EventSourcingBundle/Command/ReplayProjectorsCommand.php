@@ -5,14 +5,17 @@ namespace Simgroep\EventSourcing\EventSourcingBundle\Command;
 use Generator;
 use React\ChildProcess\Process;
 use React\EventLoop\Factory;
-use RuntimeException;
 use Simgroep\EventSourcing\EventSourcingBundle\Infrastructure\Replay;
 use Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry\ProjectorRegistry;
+use Simgroep\EventSourcing\EventSourcingBundle\Reflector\DomainMessageReflector;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class ReplayProjectorsCommand extends ContainerAwareCommand
 {
@@ -43,6 +46,14 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
             InputOption::VALUE_REQUIRED,
             'The stream id to project'
         );
+
+        $this->addOption(
+            'interact',
+            'interact',
+            InputOption::VALUE_REQUIRED,
+            'The stream id for interactive replaying'
+        );
+
         $this->addOption(
             'threads',
             'threads',
@@ -81,9 +92,7 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
      */
     protected function executePreparation(InputInterface $input, OutputInterface $output)
     {
-        /** @var Replay $eventStore */
         /** @var ProjectorRegistry $projectorRegistry */
-        $eventStore         = $this->getContainer()->get('sim.event_store.replay');
         $projectorRegistry  = $this->getContainer()->get('sim.projector.registry');
 
         $projectorsToHandle  = $this->generateProjectorList(
@@ -127,6 +136,10 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
                 '<info>Dispatching thread for event stream %s</info>',
                 $stream
             ));
+
+            if ($this->shouldInteractOnStream($input, $stream)) {
+                $this->interactiveStream($input, $output, $stream);
+            }
 
             $process = new Process(sprintf(
                 'app/console simgroep:eventsourcing:events:replay %s --stream %s',
@@ -298,5 +311,63 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
 
             $this->clearProjector($serviceId);
         }
+    }
+
+    /**
+     * @param $input
+     * @param $currentStream
+     * @return bool
+     */
+    private function shouldInteractOnStream($input, $currentStream)
+    {
+        $interactOnStreamId = $input->getOption('interact');
+        return ($interactOnStreamId && $interactOnStreamId === $currentStream);
+    }
+
+    private function interactiveStream($input, $output, $currentStream) {
+        /** @var Replay $eventStore */
+        $eventStore         = $this->getContainer()->get('sim.event_store.replay');
+        $eventStore->replay($currentStream, function($stream) use ($input, $output) {
+            $metadata       = "";
+            $payload        = "";
+            $reflector      = new DomainMessageReflector($stream);
+            $questionHelper = new QuestionHelper();
+            $question       = new ConfirmationQuestion('Continue to next playhead? (Y/n)', true);
+
+
+            $reflections = $reflector->reflect(DomainMessageReflector::METADATA);
+            foreach ($reflections as $property => $value) {;
+                $metadata = $metadata.$property.': '.$value." ";
+            }
+            $reflections = $reflector->reflect(DomainMessageReflector::PAYLOAD);
+            foreach ($reflections as $property => $value) {
+                $payload = $payload.$property.': '.$value." ";
+            }
+            $table = new Table($output);
+            $table->setHeaders(array("Property", "Value"))
+                ->setRows(array(
+                    array("Id", $stream->getId()),
+                    array("Recorded at", $stream->getRecordedOn()->toString()),
+                    array("Playhead number", $stream->getPlayhead()),
+                    array("Command", $stream->getType()),
+                ))
+                ->render();
+            $table = new Table($output);
+            $table->setHeaders(array("Metadata"))
+                ->setRows(array(
+                    array($metadata),
+                ))
+                ->render();
+            $table = new Table($output);
+            $table->setHeaders(array("Payload"))
+                ->setRows(array(
+                    array($payload),
+                ))
+                ->render();
+
+            if (false === $questionHelper->ask($input, $output, $question)) {
+                exit("replaying stopped");
+            }
+        });
     }
 }
