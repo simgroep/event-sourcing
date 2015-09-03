@@ -691,12 +691,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JurJean/SpraySerializer.git",
-                "reference": "f3825d06b98e6ff1b0a52744493509e0b7c008fd"
+                "reference": "94fc48a291725af5bd5c5c1eabcce1a6465fdd7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JurJean/SpraySerializer/zipball/f3825d06b98e6ff1b0a52744493509e0b7c008fd",
-                "reference": "f3825d06b98e6ff1b0a52744493509e0b7c008fd",
+                "url": "https://api.github.com/repos/JurJean/SpraySerializer/zipball/94fc48a291725af5bd5c5c1eabcce1a6465fdd7e",
+                "reference": "94fc48a291725af5bd5c5c1eabcce1a6465fdd7e",
                 "shasum": ""
             },
             "require": {
@@ -720,7 +720,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-09-03 09:54:00"
+            "time": "2015-09-03 10:58:30"
         },
         {
             "name": "jurjean/spray-serializer-bundle",
