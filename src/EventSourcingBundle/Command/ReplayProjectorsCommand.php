@@ -259,19 +259,9 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
      */
     protected function clearProjector($name)
     {
-        $repository = $this->locateRepository($name);
+        $projectorRegistry = $this->getContainer()->get('sim.projector.registry');
+        $repository = $projectorRegistry->getRepository($name);
         $repository->removeAll();
-    }
-
-    /**
-     * @param $name
-     * @return object
-     */
-    private function locateRepository($name)
-    {
-        return $this->getContainer()->get(
-            sprintf('sim.read_model.repository.%s',$name)
-        );
     }
 
     /**
