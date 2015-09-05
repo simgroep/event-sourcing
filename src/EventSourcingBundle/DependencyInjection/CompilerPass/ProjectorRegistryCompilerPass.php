@@ -23,20 +23,13 @@ class ProjectorRegistryCompilerPass implements CompilerPassInterface
                 if (!array_key_exists("repository", $attributes) ){
                     continue;
                 }
+
                 $definition->addMethodCall(
                     'addProjector',
-                    array(new Reference($id), $this->generateProjectorKey($id), new Reference($attributes['repository']))
+                    array(new Reference($id), $id, new Reference($attributes['repository']))
                 );
             }
         }
-    }
-    /**
-     * @param $serviceId
-     * @return string
-     */
-    private function generateProjectorKey($serviceId)
-    {
-        return str_replace('sim.read_model.projector.','', $serviceId);
     }
 
 }
