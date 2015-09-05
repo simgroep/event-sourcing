@@ -81,7 +81,7 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
                 $this->executePreparation($input, $output);
                 $this->executeInteractiveStreamManager($input, $output);
                 break;
-            case (false === $stream):
+            case (null === $stream):
                 //multithread replaying no interaction
                 $this->executePreparation($input, $output);
                 $this->executeMultiThreadStreamManager($input, $output);
@@ -329,7 +329,7 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
      */
     private function hasInteraction(InputInterface $input)
     {
-        return (is_bool($input->getOption('interact'))) ? false : true;
+        return (null === $input->getOption('interact')) ? false : true;
     }
 
     /**
