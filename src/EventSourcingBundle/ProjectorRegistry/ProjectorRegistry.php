@@ -1,30 +1,24 @@
 <?php
-
 namespace Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry;
-
 use ArrayAccess;
 use ArrayIterator;
 use Broadway\ReadModel\ProjectorInterface;
 use IteratorAggregate;
 use Simgroep\EventSourcing\EventSourcingBundle\ProjectorRegistry\Exceptions\DuplicateProjectorException;
-
-
 /**
  * Class ProjectorRegistry
  * @package SIM\SettingsBundle\ProjectorRegistry
  */
 class ProjectorRegistry implements ArrayAccess, IteratorAggregate
 {
-
     /**
      * @var array
      */
     private $projectors = array();
-
     /**
      * @param ProjectorInterface $projector
      */
-    public function addProjector(ProjectorInterface $projector, $key = null)
+    public function addProjector(ProjectorInterface $projector, $key = null, $projectionSource)
     {
         foreach ($this->projectors as $index => $existingProjector) {
             if ($projector === $existingProjector) {
@@ -32,10 +26,9 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
                     sprintf("Projector: '%s' already exists in Registry", get_class($projector)));
             }
         }
-
-        $this->projectors[$key] = $projector;
+        $this->projectors[$key]['projector'] = $projector;
+        $this->projectors[$key]['repository']= $projectionSource;
     }
-
     /**
      * @return array
      */
@@ -43,7 +36,6 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
     {
         return array_keys($this->projectors);
     }
-
     /**
      * @param mixed $offset
      * @return bool
@@ -52,7 +44,6 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
     {
         return isset($this->projectors[$offset]);
     }
-
     /**
      * @param mixed $offset
      * @return null
@@ -61,8 +52,6 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
     {
         return isset($this->projectors[$offset]) ? $this->projectors[$offset] : null;
     }
-
-
     /**
      * @param mixed $offset
      * @param mixed $value
@@ -75,7 +64,6 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
             $this->projectors[$offset] = $value;
         }
     }
-
     /**
      * @param mixed $offset
      */
@@ -83,7 +71,6 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
     {
         unset($this->projectors[$offset]);
     }
-
     /**
      * @return ArrayIterator
      */
@@ -91,6 +78,20 @@ class ProjectorRegistry implements ArrayAccess, IteratorAggregate
     {
         return new ArrayIterator($this->projectors);
     }
-
-
+    /**
+     * @param $offset
+     * @return mixed
+     */
+    public function getProjector($offset)
+    {
+        return $this->projectors[$offset]['projector'];
+    }
+    /**
+     * @param $offset
+     * @return mixed
+     */
+    public function getRepository($offset)
+    {
+        return $this->projectors[$offset]['repository'];
+    }
 }
