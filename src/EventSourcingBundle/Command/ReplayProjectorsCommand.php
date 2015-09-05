@@ -70,6 +70,8 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
      *
      * @param InputInterface $input
      * @param OutputInterface $output
+     *
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -119,6 +121,8 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     *
+     * @return void
      */
     protected function executeInteractiveStreamManager(InputInterface $input, OutputInterface $output)
     {
@@ -132,6 +136,8 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     *
+     * @return void
      */
     protected function executeMultiThreadStreamManager(InputInterface $input, OutputInterface $output)
     {
@@ -275,7 +281,7 @@ class ReplayProjectorsCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param $name
+     * @param string $name
      */
     protected function clearProjector($name)
     {
