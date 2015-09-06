@@ -26,7 +26,7 @@ class DomainMessageReflector
      * @param string $reflectionType
      * @return array
      */
-    public function reflect(string $reflectionType) : array
+    public function reflect(string $reflectionType)
     {
         $objectToReflect = $this->domainMessage->{'get' . $reflectionType}();
         $reflector = new \ReflectionClass($objectToReflect);
