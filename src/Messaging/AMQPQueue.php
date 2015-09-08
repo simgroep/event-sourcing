@@ -54,9 +54,8 @@ class AMQPQueue implements Queue
     public function publish(QueueMessage $message)
     {
         $this->channel->basic_publish(
-            new AMQPMessage($this->serializer->serialize($message)),
-            $this->exchange,
-            $this->routingKey
+            new AMQPMessage(json_encode($this->serializer->serialize($message))),
+            $this->exchange
         );
     }
 
