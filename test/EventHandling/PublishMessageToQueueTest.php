@@ -6,7 +6,7 @@ use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
-use Simgroep\EventSourcing\Messaging\GenericMessage;
+use Simgroep\EventSourcing\Messaging\DomainEventStreamMessage;
 use Simgroep\EventSourcing\Messaging\Queue;
 use Simgroep\EventSourcing\TestCase;
 use stdClass;
@@ -32,7 +32,7 @@ class PublishMessageToQueueTest extends TestCase
 
         $this->queue->expects($this->once())
             ->method('publish')
-            ->with($this->equalTo(new GenericMessage('id', new DomainEventStream(array($payload)))));
+            ->with($this->isInstanceOf(DomainEventStreamMessage::class));
 
         $this->createListener()->handle($domainMessage);
     }

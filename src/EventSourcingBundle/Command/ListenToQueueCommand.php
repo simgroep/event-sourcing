@@ -63,8 +63,8 @@ class ListenToQueueCommand extends Command
         $this->queueRegistry->get($input->getArgument('queue'))->receive(function(QueueMessage $message) use ($output) {
             try {
                 $output->writeln(sprintf('<info>Handling message with id:</info> %s', $message->getId()));
-                $this->eventStore->append($message->getId(), $message->getStream());
-                $this->eventBus->publish($message->getStream());
+                $this->eventStore->append($message->getId(), $message->getPayload());
+                $this->eventBus->publish($message->getPayload());
             } catch (Exception $e) {
                 $output->writeln(
                     '<error>Could not handle message:</error> %s in file %s on line %s: %s',

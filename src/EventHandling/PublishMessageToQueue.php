@@ -5,7 +5,7 @@ namespace Simgroep\EventSourcing\EventHandling;
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
 use Broadway\EventHandling\EventListenerInterface;
-use Simgroep\EventSourcing\Messaging\GenericMessage;
+use Simgroep\EventSourcing\Messaging\DomainEventStreamMessage;
 use Simgroep\EventSourcing\Messaging\Queue;
 
 class PublishMessageToQueue implements EventListenerInterface
@@ -28,8 +28,7 @@ class PublishMessageToQueue implements EventListenerInterface
      */
     public function handle(DomainMessage $domainMessage)
     {
-        $this->queue->publish(new GenericMessage(
-            $domainMessage->getId(),
+        $this->queue->publish(new DomainEventStreamMessage(
             new DomainEventStream(array($domainMessage->getPayload()))
         ));
     }

@@ -5,7 +5,7 @@ namespace Simgroep\EventSourcing\EventSourcingBundle\Command;
 use Broadway\Domain\DomainEventStream;
 use Broadway\EventHandling\EventBusInterface;
 use Broadway\EventStore\EventStoreInterface;
-use Simgroep\EventSourcing\Messaging\GenericMessage;
+use Simgroep\EventSourcing\Messaging\DomainEventStreamMessage;
 use Simgroep\EventSourcing\Messaging\Queue;
 use Simgroep\EventSourcing\Messaging\QueueRegistry;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -53,10 +53,10 @@ class ListenToQueueCommandTest extends WebTestCase
 
     public function testItListensToAQueue()
     {
-        $message = new GenericMessage('foo', new DomainEventStream(array()));
+        $message = new DomainEventStreamMessage(new DomainEventStream(array()));
         $this->queueRegistry->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('foo'))
+            ->with($this->isType('string'))
             ->will($this->returnValue($this->queue));
         $this->queue->expects($this->once())
             ->method('receive')
@@ -66,11 +66,11 @@ class ListenToQueueCommandTest extends WebTestCase
         $this->eventStore->expects($this->once())
             ->method('append')
             ->with(
-                $this->equalTo('foo'),
-                $this->identicalTo($message->getStream()));
+                $this->isType('string'),
+                $this->identicalTo($message->getPayload()));
         $this->eventBus->expects($this->once())
             ->method('publish')
-            ->with($this->identicalTo($message->getStream()));
+            ->with($this->identicalTo($message->getPayload()));
 
         $input = new ArrayInput(array(
             'queue' => 'foo'

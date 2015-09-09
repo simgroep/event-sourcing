@@ -9,7 +9,7 @@ use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Simgroep\EventSourcing\EventSourcingBundle\SimgroepEventSourcingBundle;
-use Simgroep\EventSourcing\Messaging\GenericMessage;
+use Simgroep\EventSourcing\Messaging\DomainEventStreamMessage;
 use Spray\BundleIntegration\ORMIntegrationTestCase;
 use Spray\SerializerBundle\SpraySerializerBundle;
 use stdClass;
@@ -53,7 +53,7 @@ class SerializerTest extends ORMIntegrationTestCase
                 new DomainMessage('foo', 1, new Metadata(array()), new stdClass, DateTime::now())
             ),
             array(
-                new GenericMessage('foo', new DomainEventStream(array(new stdClass)))
+                new DomainEventStreamMessage(new DomainEventStream(array(new stdClass)))
             )
         );
     }
