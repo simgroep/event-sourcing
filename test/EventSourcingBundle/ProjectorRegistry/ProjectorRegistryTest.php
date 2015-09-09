@@ -20,14 +20,21 @@ class ProjectorRegistryTest extends \Simgroep\EventSourcing\TestCase
     {
         $projector = $this->getProjectorMock();
         $registry  = new ProjectorRegistry();
-        $registry->addProjector($projector, "someKey");
+        $registry->addProjector($projector, "serviceId", "repository");
 
-        $this->assertEquals(true, $registry->offsetExists("someKey"));
-        $this->assertEquals($projector, $registry['someKey']);
+        $this->assertEquals(true, $registry->offsetExists("serviceId"));
+        $this->assertEquals($projector, $registry['serviceId']['projector']);
+        $this->assertEquals("repository", $registry['serviceId']['repository']);
 
-        foreach ($registry as $key => $valueProjector) {
-            $this->assertEquals("someKey",$key);
-            $this->assertEquals($projector, $valueProjector);
+        foreach ($registry as $key => $projectorMetaData) {
+            $this->assertEquals("serviceId",$key);
+            $this->assertEquals(
+                $projectorMetaData,
+                [
+                    "projector" => $projector,
+                    "repository" => "repository"
+                ]
+            );
         }
     }
 

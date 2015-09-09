@@ -16,25 +16,20 @@ class ProjectorRegistryCompilerPass implements CompilerPassInterface
         if (!$container->has('sim.projector.registry')) {
             return;
         }
-
         $definition     = $container->findDefinition('sim.projector.registry');
         $taggedServices = $container->findTaggedServiceIds('projector.replayable');
-
         foreach ($taggedServices as $id => $tags) {
-            $definition->addMethodCall(
-                'addProjector',
-                array(new Reference($id), $this->generateProjectorKey($id))
-            );
-        }
-    }
+            foreach ($tags as $attributes) {
+                if (!array_key_exists("repository", $attributes) ){
+                    continue;
+                }
 
-    /**
-     * @param $serviceId
-     * @return string
-     */
-    private function generateProjectorKey($serviceId)
-    {
-        return str_replace('sim.read_model.projector.','', $serviceId);
+                $definition->addMethodCall(
+                    'addProjector',
+                    array(new Reference($id), $id, new Reference($attributes['repository']))
+                );
+            }
+        }
     }
 
 }

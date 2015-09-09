@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68bd5478f4a40a1d1940ca072fd52cde",
+    "hash": "e2f4b337848ce2ffcabd2cb158c4f82f",
     "packages": [
         {
             "name": "arvenil/ninja-mutex",
@@ -691,12 +691,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JurJean/SpraySerializer.git",
-                "reference": "26629d04061e413b37e99013cfe4f598e593081e"
+                "reference": "94fc48a291725af5bd5c5c1eabcce1a6465fdd7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JurJean/SpraySerializer/zipball/26629d04061e413b37e99013cfe4f598e593081e",
-                "reference": "26629d04061e413b37e99013cfe4f598e593081e",
+                "url": "https://api.github.com/repos/JurJean/SpraySerializer/zipball/94fc48a291725af5bd5c5c1eabcce1a6465fdd7e",
+                "reference": "94fc48a291725af5bd5c5c1eabcce1a6465fdd7e",
                 "shasum": ""
             },
             "require": {
@@ -720,7 +720,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-07-27 09:51:25"
+            "time": "2015-09-03 10:58:30"
         },
         {
             "name": "jurjean/spray-serializer-bundle",
@@ -728,16 +728,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JurJean/SpraySerializerBundle.git",
-                "reference": "3c6b3d9310ea48b69869ffd70e880a45fb41b9e3"
+                "reference": "a1eb32aad8b25eafe6a39260daf6af087145ab25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JurJean/SpraySerializerBundle/zipball/3c6b3d9310ea48b69869ffd70e880a45fb41b9e3",
-                "reference": "3c6b3d9310ea48b69869ffd70e880a45fb41b9e3",
+                "url": "https://api.github.com/repos/JurJean/SpraySerializerBundle/zipball/a1eb32aad8b25eafe6a39260daf6af087145ab25",
+                "reference": "a1eb32aad8b25eafe6a39260daf6af087145ab25",
                 "shasum": ""
             },
             "require": {
-                "jurjean/spray-serializer": ">=1.0.0",
+                "jurjean/spray-serializer": "dev-master",
                 "symfony/http-foundation": ">=2.0.0"
             },
             "require-dev": {
@@ -761,7 +761,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-04-09 09:14:05"
+            "time": "2015-09-03 10:02:37"
         },
         {
             "name": "psr/log",
@@ -2871,6 +2871,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.6.0"
+    },
     "platform-dev": []
 }

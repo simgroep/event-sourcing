@@ -8,6 +8,7 @@
         "psr-4": { "Simgroep\\EventSourcing\\": "test/" }
     },
     "require": {
+        "php": ">=5.6.0",
         "broadway/broadway": "~0.5",
         "jurjean/spray-serializer-bundle": "dev-master",
         "jurjean/spray-serializer": "dev-master",

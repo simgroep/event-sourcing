@@ -42,13 +42,12 @@ class AMQPQueueTest extends PHPUnit_Framework_TestCase
         $this->serializer->expects($this->once())
             ->method('serialize')
             ->with($this->identicalTo($message))
-            ->will($this->returnValue('{}'));
+            ->will($this->returnValue(array()));
         $this->channel->expects($this->once())
             ->method('basic_publish')
             ->with(
-                $this->equalTo(new AMQPMessage('{}')),
-                $this->equalTo('exchange'),
-                $this->equalTo('key'));
+                $this->equalTo(new AMQPMessage('[]')),
+                $this->equalTo('exchange'));
         $this->createQueue()->publish($message);
     }
 

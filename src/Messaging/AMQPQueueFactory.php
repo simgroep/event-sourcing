@@ -47,7 +47,7 @@ class AMQPQueueFactory
     {
         return new AMQPQueue(
             $this->serializer,
-            $this->buildChannel($queue),
+            $this->buildChannel($queue, $exchange),
             $exchange,
             $routingKey,
             $queue
@@ -59,9 +59,11 @@ class AMQPQueueFactory
      *
      * @return AMQPChannel
      */
-    public function buildChannel($queue)
+    public function buildChannel($queue, $exchange)
     {
         $this->channels[] = $channel = $this->connection->channel();
+        $channel->exchange_declare($exchange, 'fanout', false, false, false);
+        $channel->queue_bind($queue, $exchange);
         $channel->queue_declare($queue, false, false, false, false);
         $channel->exchange_declare($exchange, 'fanout', false, false, false);
         $channel->queue_bind($queue, $exchange);
