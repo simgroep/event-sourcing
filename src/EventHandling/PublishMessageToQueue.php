@@ -29,7 +29,7 @@ class PublishMessageToQueue implements EventListenerInterface
     public function handle(DomainMessage $domainMessage)
     {
         $this->queue->publish(new DomainEventStreamMessage(
-            new DomainEventStream(array($domainMessage->getPayload()))
+            new DomainEventStream(array($domainMessage))
         ));
     }
 }
