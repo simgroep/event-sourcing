@@ -3,9 +3,10 @@
 namespace Simgroep\EventSourcing\EventSourcingBundle\Serializer;
 
 use Spray\Serializer\AbstractObjectSerializer;
+use Spray\Serializer\BoundClosureSerializer;
 use Spray\Serializer\SerializerInterface;
 
-class DomainMessageSerializer extends AbstractObjectSerializer
+class DomainMessageSerializer extends BoundClosureSerializer
 {
     public function __construct()
     {

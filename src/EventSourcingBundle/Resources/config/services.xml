@@ -66,6 +66,9 @@
         <service id="simgroep_event_sourcing.serializer.domain_message" class="Simgroep\EventSourcing\EventSourcingBundle\Serializer\DomainMessageSerializer">
             <tag name="spray_serializer" />
         </service>
+        <service id="simgroep_event_sourcing.serializer.domain_event_stream" class="Simgroep\EventSourcing\EventSourcingBundle\Serializer\DomainEventStreamSerializer">
+            <tag name="spray_serializer" />
+        </service>
 
         <service id="sim.event_store.replay" class="Simgroep\EventSourcing\EventSourcingBundle\Infrastructure\Replay">
             <argument type="service" id="doctrine.dbal.default_connection" />
