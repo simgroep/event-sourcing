@@ -3,8 +3,9 @@
 namespace Simgroep\EventSourcing\Messaging;
 
 use Broadway\Domain\DomainEventStreamInterface;
+use Rhumsaa\Uuid\Uuid;
 
-class GenericMessage implements QueueMessage
+class DomainEventStreamMessage implements QueueMessage
 {
     /**
      * @var string
@@ -14,16 +15,15 @@ class GenericMessage implements QueueMessage
     /**
      * @var DomainEventStreamInterface
      */
-    private $stream;
+    private $payload;
 
     /**
-     * @param string                     $id
      * @param DomainEventStreamInterface $stream
      */
-    public function __construct($id, DomainEventStreamInterface $stream)
+    public function __construct(DomainEventStreamInterface $stream)
     {
-        $this->id = $id;
-        $this->stream = $stream;
+        $this->id = (string) Uuid::uuid4();
+        $this->payload = $stream;
     }
 
     /**
@@ -37,9 +37,8 @@ class GenericMessage implements QueueMessage
     /**
      * @return DomainEventStreamInterface
      */
-    public function getStream()
+    public function getPayload()
     {
-        return $this->stream;
+        return $this->payload;
     }
-
 }

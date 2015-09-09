@@ -38,7 +38,7 @@ class AMQPQueueTest extends PHPUnit_Framework_TestCase
 
     public function testPublishEvent()
     {
-        $message = new GenericMessage('foo', new DomainEventStream(array()));
+        $message = new DomainEventStreamMessage(new DomainEventStream(array()));
         $this->serializer->expects($this->once())
             ->method('serialize')
             ->with($this->identicalTo($message))

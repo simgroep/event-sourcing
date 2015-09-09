@@ -12,7 +12,7 @@ interface QueueMessage
     public function getId();
 
     /**
-     * @return DomainEventStreamInterface
+     * @return mixed
      */
-    public function getStream();
+    public function getPayload();
 }
