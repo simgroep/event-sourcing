@@ -63,6 +63,8 @@ class AMQPQueueFactory
     {
         $this->channels[] = $channel = $this->connection->channel();
         $channel->queue_declare($queue, false, false, false, false);
+        $channel->exchange_declare($exchange, 'fanout', false, false, false);
+        $channel->queue_bind($queue, $exchange);
         return $channel;
     }
 
