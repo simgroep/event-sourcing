@@ -13,8 +13,6 @@
 
     <services>
         <service id="command_gateway" alias="simgroep_event_sourcing.command_gateway" />
-        <service id="queue_registry" alias="simgroep_event_sourcing.messaging.queue_registry" />
-        <service id="queue_factory" alias="simgroep_event_sourcing.messaging.queue_factory" />
         
         <service id="simgroep_event_sourcing.command_gateway" class="Simgroep\EventSourcing\CommandHandling\CommandGateway">
             <argument type="service" id="broadway.command_handling.simple_command_bus" />
@@ -50,24 +48,39 @@
             </argument>
         </service>
 
-        <service id="simgroep_event_sourcing.messaging.queue_registry" class="Simgroep\EventSourcing\Messaging\ArrayQueueRegistry" />
-        <service id="simgroep_event_sourcing.messaging.queue_factory" class="Simgroep\EventSourcing\Messaging\AMQPQueueFactory">
-            <argument type="service" id="spray_serializer" />
-            <argument type="service" id="simgroep_event_sourcing.messaging.amqp_connection" />
-        </service>
-
-        <service id="simgroep_event_sourcing.messaging.amqp_connection" class="PhpAmqpLib\Connection\AMQPStreamConnection">
-            <argument>%amqp_host%</argument>
-            <argument>%amqp_port%</argument>
-            <argument>%amqp_username%</argument>
-            <argument>%amqp_password%</argument>
-        </service>
-
         <service id="simgroep_event_sourcing.serializer.domain_message" class="Simgroep\EventSourcing\EventSourcingBundle\Serializer\DomainMessageSerializer">
             <tag name="spray_serializer" />
         </service>
         <service id="simgroep_event_sourcing.serializer.domain_event_stream" class="Simgroep\EventSourcing\EventSourcingBundle\Serializer\DomainEventStreamSerializer">
             <tag name="spray_serializer" />
+        </service>
+
+        <service id="simgroep_event_sourcing.event_loop"
+                 class="React\EventLoop\LoopInterface"
+                 factory-class="React\EventLoop\Factory"
+                 factory-method="create">
+        </service>
+        <service id="simgroep_event_sourcing.messaging.error_handler"
+                 class="Simgroep\EventSourcing\Messaging\ExceptionErrorHandler">
+        </service>
+
+        <service id="simgroep_event_sourcing.messaging.channel_factory" class="Simgroep\EventSourcing\Messaging\ChannelFactory">
+            <argument type="service" id="spray_serializer" />
+            <argument type="service" id="simgroep_event_sourcing.event_loop" />
+            <argument type="service" id="simgroep_event_sourcing.messaging.error_handler" />
+            <argument type="collection">
+                <argument key="host">%amqp_host%</argument>
+                <argument key="port">%amqp_port%</argument>
+                <argument key="user">%amqp_username%</argument>
+                <argument key="pass">%amqp_password%</argument>
+            </argument>
+        </service>
+
+        <service id="simgroep_event_sourcing.messaging.publisher_factory"
+                 class="Simgroep\EventSourcing\Messaging\PublisherFactory">
+            <argument type="service" id="simgroep_event_sourcing.event_loop" />
+            <argument type="service" id="simgroep_event_sourcing.messaging.channel_factory" />
+            <argument type="service" id="spray_serializer" />
         </service>
 
         <service id="sim.event_store.replay" class="Simgroep\EventSourcing\EventSourcingBundle\Infrastructure\Replay">

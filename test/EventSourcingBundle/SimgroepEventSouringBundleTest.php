@@ -4,7 +4,7 @@ namespace Simgroep\EventSourcing\EventSourcingBundle;
 
 use Broadway\Bundle\BroadwayBundle\BroadwayBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Simgroep\EventSourcing\Messaging\AMQPQueueFactory;
+use Simgroep\EventSourcing\Messaging\ChannelFactory;
 use Simgroep\EventSourcing\Messaging\Queue;
 use Simgroep\EventSourcing\Messaging\VoidQueue;
 use Spray\BundleIntegration\ORMIntegrationTestCase;

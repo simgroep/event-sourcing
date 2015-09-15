@@ -40,11 +40,11 @@ class AMQPQueueFactoryTest extends TestCase
     }
 
     /**
-     * @return AMQPQueueFactory
+     * @return ChannelFactory
      */
     protected function createFactory()
     {
-        return new AMQPQueueFactory(
+        return new ChannelFactory(
             $this->serializer,
             $this->connection
         );
