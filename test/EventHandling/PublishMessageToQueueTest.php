@@ -6,23 +6,23 @@ use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
-use Simgroep\EventSourcing\Messaging\DomainEventStreamMessage;
+use Simgroep\EventSourcing\Messaging\Publisher;
 use Simgroep\EventSourcing\Messaging\Queue;
 use Simgroep\EventSourcing\TestCase;
 use stdClass;
 
 class PublishMessageToQueueTest extends TestCase
 {
-    private $queue;
+    private $publisher;
 
     protected function setUp()
     {
-        $this->queue = $this->getMock(Queue::class);
+        $this->publisher = $this->getMock(Publisher::class);
     }
 
     protected function createListener()
     {
-        return new PublishMessageToQueue($this->queue);
+        return new PublishMessageToQueue($this->publisher);
     }
 
     public function testPublishDomainMessage()
@@ -30,9 +30,9 @@ class PublishMessageToQueueTest extends TestCase
         $payload = new stdClass;
         $domainMessage = new DomainMessage('id', 1, new Metadata(array()), $payload, DateTime::now());
 
-        $this->queue->expects($this->once())
+        $this->publisher->expects($this->once())
             ->method('publish')
-            ->with($this->isInstanceOf(DomainEventStreamMessage::class));
+            ->with($this->isInstanceOf(DomainEventStream::class));
 
         $this->createListener()->handle($domainMessage);
     }

@@ -4,7 +4,7 @@ namespace Simgroep\EventSourcing\EventSourcingBundle;
 
 use Broadway\Bundle\BroadwayBundle\BroadwayBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Simgroep\EventSourcing\Messaging\AMQPQueueFactory;
+use Simgroep\EventSourcing\Messaging\ChannelFactory;
 use Simgroep\EventSourcing\Messaging\Queue;
 use Simgroep\EventSourcing\Messaging\VoidQueue;
 use Spray\BundleIntegration\ORMIntegrationTestCase;
@@ -42,11 +42,6 @@ class SimgroepEventSouringBundleTest extends ORMIntegrationTestCase
             $lockingRepositoryDefinition->setClass('Simgroep\EventSourcing\Repository\TestAssets\Aggregate');
             $lockingRepositoryDefinition->addArgument('Simgroep\EventSourcing\Repository\TestAssets\Aggregate');
             $container->setDefinition('locking_repository', $lockingRepositoryDefinition);
-
-            $queueDefinition = new Definition();
-            $queueDefinition->setClass(VoidQueue::class);
-            $queueDefinition->addTag('simgroep.event.queue', array('registry_key' => 'foo'));
-            $container->setDefinition('queue', $queueDefinition);
         });
     }
     
@@ -69,12 +64,6 @@ class SimgroepEventSouringBundleTest extends ORMIntegrationTestCase
             'Simgroep\EventSourcing\Repository\LockingRepository',
             $this->createContainer()->get('locking_repository')
         );
-    }
-
-    public function testQueueRegistry()
-    {
-        $registry = $this->createContainer()->get('queue_registry');
-        $this->assertInstanceOf(Queue::class, $registry->get('foo'));
     }
     
     /**
