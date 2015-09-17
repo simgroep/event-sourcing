@@ -83,22 +83,16 @@ abstract class AbstractFanoutPublisher implements Publisher
                 },
                 function(Exception $exception) {
                     $this->loop->stop();
-                    var_dump(sprintf(
-                        'Could not publish message: %s on line %s in file %s',
-                        $exception->getMessage(),
-                        $exception->getLine(),
-                        $exception->getFile()
-                    ));
-//                    throw new AsyncMessagingException(
-//                        sprintf(
-//                            'Could not publish message: %s on line %s in file %s',
-//                            $exception->getMessage(),
-//                            $exception->getLine(),
-//                            $exception->getFile()
-//                        ),
-//                        0,
-//                        $exception
-//                    );
+                    throw new AsyncMessagingException(
+                        sprintf(
+                            'Could not publish message: %s on line %s in file %s',
+                            $exception->getMessage(),
+                            $exception->getLine(),
+                            $exception->getFile()
+                        ),
+                        0,
+                        $exception
+                    );
                 }
             )
             ->then(
