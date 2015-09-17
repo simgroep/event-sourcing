@@ -5,22 +5,21 @@ namespace Simgroep\EventSourcing\EventHandling;
 use Broadway\Domain\DomainEventStream;
 use Broadway\Domain\DomainMessage;
 use Broadway\EventHandling\EventListenerInterface;
-use Simgroep\EventSourcing\Messaging\DomainEventStreamMessage;
-use Simgroep\EventSourcing\Messaging\Queue;
+use Simgroep\EventSourcing\Messaging\Publisher;
 
 class PublishMessageToQueue implements EventListenerInterface
 {
     /**
-     * @var Queue
+     * @var Publisher
      */
-    private $queue;
+    private $publisher;
 
     /**
-     * @param Queue $queue
+     * @param Publisher $publisher
      */
-    public function __construct(Queue $queue)
+    public function __construct(Publisher $publisher)
     {
-        $this->queue = $queue;
+        $this->publisher = $publisher;
     }
 
     /**
@@ -28,8 +27,6 @@ class PublishMessageToQueue implements EventListenerInterface
      */
     public function handle(DomainMessage $domainMessage)
     {
-        $this->queue->publish(new DomainEventStreamMessage(
-            new DomainEventStream(array($domainMessage))
-        ));
+        $this->publisher->publish(new DomainEventStream(array($domainMessage)));
     }
 }

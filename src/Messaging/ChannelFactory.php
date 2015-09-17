@@ -4,10 +4,10 @@ namespace Simgroep\EventSourcing\Messaging;
 
 use Bunny\Async\Client;
 use Bunny\Channel;
-use Bunny\Message;
 use Exception;
 use React\EventLoop\LoopInterface;
 use React\Promise\PromiseInterface;
+use Simgroep\EventSourcing\Messaging\Exception\AsyncMessagingException;
 use Spray\Serializer\SerializerInterface;
 
 final class ChannelFactory
@@ -23,6 +23,11 @@ final class ChannelFactory
     private $loop;
 
     /**
+     * @var array
+     */
+    private $options = array();
+
+    /**
      * @var PromiseInterface
      */
     private $connection;
@@ -35,18 +40,16 @@ final class ChannelFactory
     /**
      * @param SerializerInterface $serializer
      * @param LoopInterface $loop
-     * @param AsyncErrorHandler $errorHandler
      * @param array $options
      */
     public function __construct(
         SerializerInterface $serializer,
         LoopInterface $loop,
-        AsyncErrorHandler $errorHandler,
         array $options)
     {
         $this->serializer = $serializer;
         $this->loop = $loop;
-        $this->errorHandler = $errorHandler;
+        $this->options = $options;
     }
 
     /**
@@ -55,14 +58,24 @@ final class ChannelFactory
     public function connect()
     {
         if (null === $this->connection) {
-            $client = new Client($this->loop);
+            $client = new Client($this->loop, $this->options);
             $this->connection = $client->connect()
                 ->then(
                     function(Client $client) {
                         return $client->channel();
                     },
-                    function (Exception $e) {
-                        $this->errorHandler->handle('Could not connect to rabbitmq', $e);
+                    function (Exception $exception) {
+                        $this->loop->stop();
+                        throw new AsyncMessagingException(
+                            sprintf(
+                                'Could not connect to rabbitmq: %s on line %s in file %s',
+                                $exception->getMessage(),
+                                $exception->getLine(),
+                                $exception->getFile()
+                            ),
+                            0,
+                            $exception
+                        );
                     }
                 );
         }
@@ -80,7 +93,7 @@ final class ChannelFactory
     public function fanout($exchange, $queue)
     {
         if ( ! isset($this->queues[$queue])) {
-            $this->connect()->then(
+            $this->queues[$queue] = $this->connect()->then(
                 function(Channel $channel) use ($exchange, $queue) {
                     return \React\Promise\all([
                         $channel,
@@ -89,8 +102,18 @@ final class ChannelFactory
                         $channel->queueBind($queue, $exchange),
                     ]);
                 },
-                function (Exception $e) {
-                    $this->errorHandler->handle('Could not create channel and exchange', $e);
+                function (Exception $exception) {
+                    $this->loop->stop();
+                    throw new AsyncMessagingException(
+                        sprintf(
+                            'Could not create channel and exchange: %s on line %s in file %s',
+                            $exception->getMessage(),
+                            $exception->getLine(),
+                            $exception->getFile()
+                        ),
+                        0,
+                        $exception
+                    );
                 }
             );
         }

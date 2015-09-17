@@ -12,8 +12,13 @@
     </parameters>
 
     <services>
-        <service id="command_gateway" alias="simgroep_event_sourcing.command_gateway" />
-        
+        <service id="command_gateway"
+                 alias="simgroep_event_sourcing.command_gateway" />
+        <service id="publisher_factory"
+                 alias="simgroep_event_sourcing.messaging.publisher_factory" />
+        <service id="consumer_factory"
+                 alias="simgroep_event_sourcing.messaging.consumer_factory" />
+
         <service id="simgroep_event_sourcing.command_gateway" class="Simgroep\EventSourcing\CommandHandling\CommandGateway">
             <argument type="service" id="broadway.command_handling.simple_command_bus" />
             <argument type="service" id="simgroep_event_sourcing.command_gateway.scheduler" />
@@ -55,19 +60,30 @@
             <tag name="spray_serializer" />
         </service>
 
-        <service id="simgroep_event_sourcing.event_loop"
+        <service id="simgroep_event_sourcing.event_loop_publisher"
                  class="React\EventLoop\LoopInterface"
                  factory-class="React\EventLoop\Factory"
                  factory-method="create">
         </service>
-        <service id="simgroep_event_sourcing.messaging.error_handler"
-                 class="Simgroep\EventSourcing\Messaging\ExceptionErrorHandler">
+        <service id="simgroep_event_sourcing.event_loop_consumer"
+                 class="React\EventLoop\LoopInterface"
+                 factory-class="React\EventLoop\Factory"
+                 factory-method="create">
         </service>
 
-        <service id="simgroep_event_sourcing.messaging.channel_factory" class="Simgroep\EventSourcing\Messaging\ChannelFactory">
+        <service id="simgroep_event_sourcing.messaging.publisher_channel_factory" class="Simgroep\EventSourcing\Messaging\ChannelFactory">
             <argument type="service" id="spray_serializer" />
-            <argument type="service" id="simgroep_event_sourcing.event_loop" />
-            <argument type="service" id="simgroep_event_sourcing.messaging.error_handler" />
+            <argument type="service" id="simgroep_event_sourcing.event_loop_publisher" />
+            <argument type="collection">
+                <argument key="host">%amqp_host%</argument>
+                <argument key="port">%amqp_port%</argument>
+                <argument key="user">%amqp_username%</argument>
+                <argument key="pass">%amqp_password%</argument>
+            </argument>
+        </service>
+        <service id="simgroep_event_sourcing.messaging.consumer_channel_factory" class="Simgroep\EventSourcing\Messaging\ChannelFactory">
+            <argument type="service" id="spray_serializer" />
+            <argument type="service" id="simgroep_event_sourcing.event_loop_consumer" />
             <argument type="collection">
                 <argument key="host">%amqp_host%</argument>
                 <argument key="port">%amqp_port%</argument>
@@ -78,8 +94,14 @@
 
         <service id="simgroep_event_sourcing.messaging.publisher_factory"
                  class="Simgroep\EventSourcing\Messaging\PublisherFactory">
-            <argument type="service" id="simgroep_event_sourcing.event_loop" />
-            <argument type="service" id="simgroep_event_sourcing.messaging.channel_factory" />
+            <argument type="service" id="simgroep_event_sourcing.event_loop_publisher" />
+            <argument type="service" id="simgroep_event_sourcing.messaging.publisher_channel_factory" />
+            <argument type="service" id="spray_serializer" />
+        </service>
+        <service id="simgroep_event_sourcing.messaging.consumer_factory"
+                 class="Simgroep\EventSourcing\Messaging\ConsumerFactory">
+            <argument type="service" id="simgroep_event_sourcing.event_loop_consumer" />
+            <argument type="service" id="simgroep_event_sourcing.messaging.consumer_channel_factory" />
             <argument type="service" id="spray_serializer" />
         </service>
 
