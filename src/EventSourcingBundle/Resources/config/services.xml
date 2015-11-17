@@ -12,6 +12,22 @@
     </parameters>
 
     <services>
+        <service id="simgroep.event_sourcing.command.container" class="CommandContainer">
+            <factory service="simgroep.event_sourcing.command.locator" method="locate" />
+            <argument></argument>
+            <argument></argument>
+        </service>
+
+        <service id="simgroep.event_sourcing.command.locator"
+                class="Simgroep\EventSourcing\CommandHandling\CommandLocator">
+        </service>
+
+        <service id="simgroep.event_sourcing.command.factory"
+                class="Simgroep\EventSourcing\CommandHandling\CommandFactory">
+            <argument type="service" id="simgroep.event_sourcing.command.container" />
+            <argument type="service" id="validator" />
+        </service>
+
         <service id="command_gateway"
                  alias="simgroep_event_sourcing.command_gateway" />
         <service id="publisher_factory"

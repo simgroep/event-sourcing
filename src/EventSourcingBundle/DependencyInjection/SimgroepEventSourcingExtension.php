@@ -24,5 +24,9 @@ class SimgroepEventSourcingExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $definition = $container->getDefinition('simgroep.event_sourcing.command.container');
+        $definition->replaceArgument(0, $config['command_path']['path']);
+        $definition->replaceArgument(1, $config['command_path']['namespace']);
     }
 }
