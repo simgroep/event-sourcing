@@ -2,7 +2,7 @@
 
 namespace Simgroep\EventSourcing\EventSourcingBundle\Serializer;
 
-use Spray\Serializer\BoundClosureSerializer;
+use Spray\Serializer\Object\BoundClosureSerializer;
 use Spray\Serializer\SerializerInterface;
 
 class DomainEventStreamSerializer extends BoundClosureSerializer
