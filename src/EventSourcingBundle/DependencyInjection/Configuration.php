@@ -22,10 +22,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('command_path')
+                ->arrayNode('command_path')->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('path')->end()
-                        ->scalarNode('namespace')->end()
+                        ->scalarNode('path')->defaultNull()->end()
+                        ->scalarNode('namespace')->defaultNull()->end()
                     ->end()
                 ->end()
             ->end()
