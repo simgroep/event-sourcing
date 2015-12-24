@@ -10,8 +10,8 @@
     "require": {
         "php": ">=5.6.0",
         "broadway/broadway": "~0.5",
-        "jurjean/spray-serializer-bundle": "1.0.1",
-        "jurjean/spray-serializer": "1.1.0",
+        "jurjean/spray-serializer-bundle": "1.0.x-dev",
+        "jurjean/spray-serializer": "2.0.x-dev",
         "arvenil/ninja-mutex": ">=0.4.0",
         "react/child-process": ">=0.4.0",
         "bunny/bunny": ">=0.1.5",
